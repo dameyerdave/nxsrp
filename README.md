@@ -27,7 +27,7 @@ services:
         ports: 
             - "443:443"
         networks:
-            - mynet
+            - <docker-network>
         restart: unless-stopped
         environment:
             - NGINX_SERVER_NAME=${NGINX_SERVER_NAME}
@@ -40,7 +40,7 @@ networks:
 
 ```bash
 NGINX_SERVER_NAME=my.server.domain.com
-BACKEND_URL=http://localhost:5000
+BACKEND_URL=http://<docker-hostname>:<port>
 ```
 
 5. Compose the docker
@@ -49,17 +49,17 @@ BACKEND_URL=http://localhost:5000
 docker-compose up -d
 ```
 
-6. Run it via `docker` command
+6. __[OR]__ Run it via `docker` command
 
 ```bash
-docker run 
-    --name proxy 
-    --hostname proxy 
-    --net mynet
-    -e NGINX_SERVER_NAME=my.server.domain.com 
-    -e BACKEND_URL=http://localhost:5000 
-    -v /etc/nginx/ssl:/etc/nginx/ssl 
-    -p 443:443 
-    -it -d 
+docker run
+    --name proxy
+    --hostname proxy
+    --net <docker-network>
+    -e NGINX_SERVER_NAME=my.server.domain.com
+    -e BACKEND_URL=http://localhost:5000
+    -v /etc/nginx/ssl:/etc/nginx/ssl
+    -p 443:443
+    -it -d
     dameyerdave/nxsrp:latest
 ```
