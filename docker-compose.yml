@@ -1,0 +1,17 @@
+version: "3.7"
+services:
+    proxy:
+        image: dameyerdave/nxsrp:latest
+        hostname: proxy
+        volumes:
+            - /private/etc/nginx/ssl:/etc/nginx/ssl
+        ports: 
+            - "443:443"
+        networks:
+            - mynet
+        restart: unless-stopped
+        environment:
+            - NGINX_SERVER_NAME=${NGINX_SERVER_NAME}
+            - BACKEND_URL=${BACKEND_URL}
+networks:
+    mynet:
