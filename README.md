@@ -33,7 +33,7 @@ services:
             - NGINX_SERVER_NAME=${NGINX_SERVER_NAME}
             - BACKEND_URL=${BACKEND_URL}
 networks:
-    mynet:
+    <docker-network>:
 ```
 
 4. Add a `.env` file with the following content
